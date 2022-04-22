@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        table{
+            border-collapse: collapse;
+        }
+        td{
+            width: 60px;
+            height: 60px;
+            border: 1px solid black;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .pole{
+            width: fit-content;
+            height: fit-content;
+            margin: auto;
+        }
+        .blockbut{
+            width: 314px;
+            height: fit-content;
+            /* border: 1px solid black; */
+            text-align: center;
+            margin-top: 10px;
+        }
+        p{
+            width: 314px;
+            height: fit-content;
+            /* border: 1px solid black; */
+            text-align: center;
+            font-size: x-large;
+        }
+    </style>
+    <div class='pole'>
+        <p id="title"> Играй! </p>
+        <table>
+            <tr>
+                <td id='1'  onclick="hod(1)"></td>
+                <td id='6'  onclick="hod(6)"></td>
+                <td id='11' onclick="hod(11)"></td>
+                <td id='16' onclick="hod(16)"></td>
+                <td id='21' onclick="hod(21)"></td>
+            </tr>
+            <tr>
+                <td id='2'  onclick="hod(2)"></td>
+                <td id='7'  onclick="hod(7)"></td>
+                <td id='12' onclick="hod(12)"></td>
+                <td id='17' onclick="hod(17)"></td>
+                <td id='22' onclick="hod(22)"></td>
+            </tr>
+            <tr>
+                <td id='3'  onclick="hod(3)"></td>
+                <td id='8'  onclick="hod(8)"></td>
+                <td id='13' onclick="hod(13)"></td>
+                <td id='18' onclick="hod(18)"></td>
+                <td id='23' onclick="hod(23)"></td>
+            </tr>
+            <tr>
+                <td id='4'  onclick="hod(4)"></td>
+                <td id='9'  onclick="hod(9)"></td>
+                <td id='14' onclick="hod(14)"></td>
+                <td id='19' onclick="hod(19)"></td>
+                <td id='24' onclick="hod(24)"></td>
+            </tr>
+            <tr>
+                <td id='5'  onclick="hod(5)"></td>
+                <td id='10' onclick="hod(10)"></td>
+                <td id='15' onclick="hod(15)"></td>
+                <td id='20' onclick="hod(20)"></td>
+                <td id='25' onclick="hod(25)"></td>
+            </tr>
+        </table>
+        <div class="blockbut">
+            <button onclick="javascript:window.location.reload ()" >Начать заново</button>
+        </div>
+        
+    </div>
+    
+    <script>
+        var colors =['Red','Orange','Gold','Fuchsia','Purple','DarkSlateBlue','BurlyWood','SaddleBrown','GreenYellow','LimeGreen','DarkGreen','DarkOliveGreen','DarkCyan','MediumTurquoise','DeepSkyBlue','Blue','Black','DarkGrey'];
+        var arr=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+        var numhod=1;
+        var shuffledArr = arr.sort(function(){
+            return Math.random() - 0.5;
+        });
+
+        for(let i=1;i<26;i++){
+            document.getElementById(i).innerHTML = shuffledArr[i-1];
+            if(i>1){
+                document.getElementById(i).style.color = colors[randColors()];
+                document.getElementById(i).style.fontSize = randSize() + 'px';
+
+                if(document.getElementById(i).style.color == document.getElementById(i-1).style.color && document.getElementById(i).style.fontSize == document.getElementById(i-1).style.fontSize){
+                    document.getElementById(i-1).style.color = colors[randColors()];
+                    document.getElementById(i-1).style.fontSize = randSize() + 'px';
+                    i--;
+                } else if(document.getElementById(i).style.color == document.getElementById(i-1).style.color){
+                            document.getElementById(i-1).style.color = colors[randColors()];
+                            i--;
+                } else if(document.getElementById(i).style.fontSize == document.getElementById(i-1).style.fontSize){
+                        document.getElementById(i-1).style.fontSize = randSize() + 'px';
+                        i--;
+                }
+                
+            } else {
+                document.getElementById(i).style.color = colors[randColors()];
+                document.getElementById(i).style.fontSize = randSize() + 'px';
+            }
+        }
+        
+        function randColors(){
+            return Math.floor(Math.random() * 18);
+        }
+        function randSize(){
+            let size = Math.floor(Math.random() * 2);
+            if(size==0){
+                return 30;
+            }
+            if(size==1){
+                return 45;
+            }
+            if(size==2){
+                return 60;
+            }
+        }
+        function hod(num){
+            if(document.getElementById(num).innerHTML==numhod){
+                numhod++;
+                document.getElementById(num).style.background='Salmon';
+            }
+            if(numhod==26){
+                document.getElementById('title').innerHTML = 'Вы выйграли!';
+            }
+        }
+        
+    </script>
+</body>
+</html>
